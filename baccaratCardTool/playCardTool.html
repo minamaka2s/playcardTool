@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Play Card Tool For minato</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      type="text/javascript"
+      src="./js/jquery.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./css/font-awesome.min.css"
+    />
+
+    <style>
+      *,
+      body,
+      button,
+      input,
+      textarea,
+      select {
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      body,
+      div,
+      dl,
+      dt,
+      dd,
+      ul,
+      ol,
+      li,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      pre,
+      form,
+      fieldset,
+      input,
+      textarea,
+      p,
+      blockquote,
+      th,
+      td {
+        margin: 0;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      fieldset,
+      img {
+        border: 0;
+      }
+      address,
+      caption,
+      cite,
+      code,
+      dfn,
+      em,
+      strong,
+      th,
+      var {
+        font-style: normal;
+        font-weight: normal;
+      }
+      ol,
+      ul {
+        list-style: none;
+      }
+      caption,
+      th {
+        text-align: left;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: 100%;
+        font-weight: normal;
+      }
+      q:before,
+      q:after {
+        content: "";
+      }
+      abbr,
+      acronym {
+        border: 0;
+      }
+    </style>
+    <style type="text/css">
+      table {
+        table-layout: fixed;
+      }
+      table thead tr th:first-child {
+        width: 80%;
+      }
+      table tbody tr td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .is-first {
+        background-color: rgba(195, 111, 24, 0.2);
+      }
+      .is-over-median {
+        color: #44b39d;
+      }
+      .is-at-median {
+        color: #3b3c3d;
+      }
+      .is-under-median {
+        color: #bf4a67;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Play Card Tool</h1>
+        <h2 class="subtitle">
+          it is not gambling
+        </h2>
+      </div>
+      <hr />
+      <div class="container">
+        <p>
+          deal card arrange:
+        </p>
+        <div class="table-container">
+            <table class="table">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S1">♠A</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H1">♥A</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C1">♣A</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D1">♦A</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S2">♠2</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H2">♥2</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C2">♣2</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D2">♦2</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S3">♠3</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H3">♥3</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C3">♣3</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D3">♦3</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S4">♠4</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H4">♥4</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C4">♣4</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D4">♦4</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S5">♠5</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H5">♥5</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C5">♣5</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D5">♦5</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S6">♠6</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H6">♥6</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C6">♣6</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D6">♦6</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S7">♠7</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H7">♥7</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C7">♣7</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D7">♦7</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S8">♠8</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H8">♥8</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C8">♣8</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D8">♦8</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S9">♠9</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H9">♥9</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C9">♣9</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D9">♦9</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S10">♠10</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H10">♥10</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C10">♣10</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D10">♦10</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S11">♠J</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H11">♥J</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C11">♣J</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D11">♦J</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S12">♠Q</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H12">♥Q</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C12">♣Q</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D12">♦Q</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_S13">♠K</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_H13">♥K</span></td>
+                          <td><span class="button is-dark is-outlined" id="arrange_input_C13">♣K</span></td>
+                          <td><span class="button is-danger is-outlined" id="arrange_input_D13">♦K</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </table>
+          </div>
+      </div>
+      <div class="container">
+        <div class="field">
+          <label class="label">Current Round Cards:</label>
+          <p class="control has-icons-left">
+            <input
+              class="input"
+              type="text"
+              id="inputCurrentRoundCards"
+              placeholder="Current Round Cards"
+            />
+            <span class="icon is-small is-left"><i class="fa fa-heart"></i></span>
+          </p>
+        </div>
+        <div class="field">
+          <label class="label">Recycle Mode</label>
+          <div class="select is-primary">
+            <select id="recyleModeSelect">
+              <option value = "1">B123P123</option>
+              <option value = "2">P321B321</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-primary" id="button_updateSequence">Update Sequence</a>
+          </p>
+        </div>
+        <div class="field">
+          <div class="message is-info">
+              <div class="message-header"><p>dealt sequence:</p><button class="delete" id = "clearDealtSequenceTextarea"></button></div>
+              <div class="message-body">
+                  <textarea class="textarea is-info is-hovered" placeholder="" id = "dealtSequenceTextarea"></textarea>
+                  <p>cards:<span id = "dealtCardsCounter"></span></p>
+                  <button class="button is-small is-danger" id = "backSpaceButton">backspace</button>
+              </div>
+              
+            </div>
+      </div>
+        <div class="field">
+            <div class="message is-info">
+                <div class="message-header"><p>recycle image:</p><button class="delete" id = "clearRecycleTextarea"></button></div>
+                <div class="message-body">
+                    <textarea class="textarea is-info is-hovered" placeholder="" id = "recycleTextarea"></textarea>
+                    <p>recycle cards:<span id = "recycleCardsCounter"></span></p>
+                    <button class="button is-small is-danger" id = "backSpaceRecycleImageButton">backspace</button>
+                </div>
+              </div>
+        </div>
+
+        <div class="field">
+          <div class="message is-info">
+              <div class="message-header"><p>game res:</p><button class="delete" id = "clearGameResTextarea"></button></div>
+              <div class="message-body">
+                  <textarea class="textarea is-info is-hovered" placeholder="" id = "gameResTextarea"></textarea>
+                  <p>games:<span id = "gameCounts"></span></p>
+                  <button class="button is-small is-danger" id = "backSpaceGameResButton">backspace</button>
+              </div>
+            </div>
+        </div>
+
+      </div>
+      
+      <hr />
+      <h2 class="subtitle">
+        by minato,2025
+      </h2>
+    </section>
+    <script type="text/javascript">
+
+      $("#clearDealtSequenceTextarea").on("click",()=>{
+         $("#dealtSequenceTextarea")[0].value = "";
+      });
+      $("#clearRecycleTextarea").on("click",()=>{
+         $("#recycleTextarea")[0].value = "";
+      });
+      $("#clearGameResTextarea").on("click",()=>{
+         $("#gameResTextarea")[0].value = "";
+      });
+
+      $("#button_updateSequence").on("click",()=>{
+          updateSequence();
+      });
+
+      $("#backSpaceButton").on("click",()=>{
+        var dealtSequenceTextarea = $("#dealtSequenceTextarea")[0];
+        backspaceTextarea(dealtSequenceTextarea);
+
+      });
+      $("#backSpaceRecycleImageButton").on("click",()=>{
+        var recycleTextarea = $("#recycleTextarea")[0];
+        backspaceTextarea(recycleTextarea);
+      });
+      $("#backSpaceGameResButton").on("click",()=>{
+        var gameResTextarea = $("#gameResTextarea")[0];
+        backspaceTextarea(gameResTextarea);
+      });
+
+      $("#generateImageButton").on("click",()=>{
+        var dealtSequenceTextarea = $("#dealtSequenceTextarea")[0];
+        var dealtSequence = dealtSequenceTextarea.value;
+        var cards = deckStringToArr(dealtSequence);
+        console.log(cards);
+        updateDealtImage();
+      });
+      function backspaceTextarea(_element){
+        var cards = deckStringToArr(_element.value);
+        cards.pop();
+        console.log(cards);
+        console.log(cards.length);
+        var textValue = cards.join(",");
+        _element.value = textValue;
+      }
+
+      for(var i = 1; i <= 13; i++){
+        for(var j = 1;j <= 4;j++){
+            var suit = j == 1 ? "S" : (j == 2 ? "H" : ( j == 3 ? "C" : ( j == 4 ? "D" : 'D')));
+            var currentInputButton = $("#arrange_input_" + suit + i);
+            var id = "#arrange_input_" + suit + i;
+            currentInputButton.on("click", () =>{
+                var ct = event.currentTarget;
+                //console.log(ct.innerHTML); 
+                var currentRoundInputE = $("#inputCurrentRoundCards")[0];
+                currentRoundInputE.value = currentRoundInputE.value + "," + ct.innerHTML;
+                if(currentRoundInputE.value.charAt(0) == ","){
+                  currentRoundInputE.value = currentRoundInputE.value.substring(1);
+                }
+            });
+        }
+        
+      }
+      function recycleCards(_mode,_cards){
+          var newRecycleCards = [];
+          var playerCards = _cards.playerCards;
+          var bankerCards = _cards.bankerCards;
+          var recycleTextarea = $("#recycleTextarea")[0];
+          if(_mode == "1"){ 
+              console.log("bottom to top b 1 2 3 p 1 2 3");
+              newRecycleCards = newRecycleCards.concat(bankerCards);
+              newRecycleCards = newRecycleCards.concat(playerCards);
+          }
+          if(_mode == "2"){
+              console.log("bottom to top p 3 2 1 b 3 2 1");
+              newRecycleCards = newRecycleCards.concat(playerCards.reverse());
+              newRecycleCards = newRecycleCards.concat(bankerCards.reverse());
+          }
+          var preRecycleCards = deckStringToArr(recycleTextarea.value);
+          var newRecycleCards = preRecycleCards.concat(newRecycleCards);
+          recycleTextarea.value = newRecycleCards.join(",");
+          $("#recycleCardsCounter")[0].innerHTML = newRecycleCards.length;
+
+      }
+
+      function updateGameRes(res){
+          var gameResTextarea = $("#gameResTextarea")[0];
+          var gameRes = deckStringToArr(gameResTextarea.value);
+          gameRes.push(res);
+          gameResTextarea.value = gameRes.join(",");
+          $("#gameCounts")[0].innerHTML = gameRes.length;
+      }
+
+      function updateSequence(){
+        var currentRoundInputE = $("#inputCurrentRoundCards")[0];
+        var recyleModeSelectE = $("#recyleModeSelect")[0];
+        var recycleMode = recyleModeSelectE.value;
+        var currentRoundCards = currentRoundInputE.value;
+        var gameRes = playBaccarat(deckStringToArr(currentRoundCards));
+        //console.log(gameRes);
+        if(gameRes.leftDeck.length > 0){
+            alert("round game err");
+            throw "round game err";
+        }
+        updateDealtSequence(currentRoundCards);
+        recycleCards(recycleMode,{playerCards:gameRes.playerCards,bankerCards:gameRes.bankerCards});
+        updateGameRes(gameRes.result);
+        currentRoundInputE.value = "";
+        
+        //console.log(recyleModeSelectE.value);
+      }
+
+      function updateDealtSequence(_newCards){
+          var dealtSequenceTextarea = $("#dealtSequenceTextarea")[0];
+          var dealtCardsCounter = $("#dealtCardsCounter")[0];
+          var preDeckArr = deckStringToArr(dealtSequenceTextarea.value);
+          var newCardsArr = deckStringToArr(_newCards);
+          var newDealtDeckArr = preDeckArr.concat(newCardsArr);
+          var dealtCardsCount = newDealtDeckArr.length;
+          dealtCardsCounter.innerHTML = dealtCardsCount;
+          //console.log(newDealtDeckArr);
+          dealtSequenceTextarea.value = newDealtDeckArr.join(",");
+      }
+
+      function updateGameResSequence(res){
+
+      }
+
+      function getPokerValue(_card){
+        //console.log(_card);
+        var value = _card.substring(1);
+        if(value == "K" || value == "Q" || value == "J" || value == "10" || value == "T"){
+            value = "0";
+        }
+        if(value == "A"){
+            value = "1";
+        }
+        value = parseInt(value);
+        return value;
+     }
+
+      function  playBaccarat(_deck){
+        var playerCards = [];
+        var bankerCards = [];
+        var player_1 = _deck.shift();
+        var banker_1 = _deck.shift();
+        var player_2 = _deck.shift();
+        var banker_2 = _deck.shift();
+        playerCards.push(player_1);
+        playerCards.push(player_2);
+        bankerCards.push(banker_1);
+        bankerCards.push(banker_2);
+        var value_player_1 = getPokerValue(player_1);
+        var value_player_2 = getPokerValue(player_2);
+        var value_banker_1 = getPokerValue(banker_1);
+        var value_banker_2 = getPokerValue(banker_2);
+        
+        var value_player_f4 = (value_player_1 + value_player_2) % 10;
+        // console.log(value_player_f4);
+        var value_banker_f4 = (value_banker_1 + value_banker_2) % 10;
+        // console.log(value_banker_f4);
+        var value_player_last;
+        var value_banker_last;
+        var winner;
+        var natureFlag = false;
+        //天牌
+        if (value_player_f4 >= 8 || value_banker_f4 >= 8) {
+          value_player_last = value_player_f4;
+          value_banker_last = value_banker_f4;
+          natureFlag = true;
+        }
+        //都大于6
+        if (value_player_f4 > 6 && value_banker_f4 > 6) {
+          value_player_last = value_player_f4;
+          value_banker_last = value_banker_f4;
+          natureFlag = true;
+        }
+
+        if (!natureFlag) {
+          //闲大于等于6 庄小于6
+          if (value_player_f4 >= 6 && value_banker_f4 < 6) {
+            var banker_3 = _deck.shift();
+            bankerCards.push(banker_3);
+            var value_banker_3 = getPokerValue(banker_3);
+            value_banker_last = (value_banker_f4 + value_banker_3) % 10;
+            value_player_last = value_player_f4;
+          }
+          //闲小于6
+          if (value_player_f4 < 6 && value_banker_f4 < 8) {
+            var player_3 = _deck.shift();
+            playerCards.push(player_3);
+            var value_player_3 = getPokerValue(player_3);
+            value_player_last = (value_player_f4 + value_player_3) % 10;
+            if (value_banker_f4 == 7) {
+              value_banker_last = value_banker_f4;
+            }
+            if (value_banker_f4 == 6) {
+              if (player_3 == 6 || player_3 == 7) {
+                var banker_3 = _deck.shift();
+                bankerCards.push(banker_3);
+                var banker_3_value = getPokerValue(banker_3);
+                value_banker_last = (value_banker_f4 + banker_3_value) % 10;
+              } else {
+                value_banker_last = value_banker_f4;
+              }
+            }
+            if (value_banker_f4 == 5) {
+              if (value_player_3 == 0 || value_player_3 == 1 || value_player_3 == 2 || value_player_3 == 3 || value_player_3 == 8 || value_player_3 == 9) {
+                value_banker_last = value_banker_f4;
+              } else {
+                var banker_3 = _deck.shift();
+                bankerCards.push(banker_3);
+                var value_banker_3 = getPokerValue(banker_3);
+                value_banker_last = (value_banker_f4 + value_banker_3) % 10;
+              }
+            }
+            if (value_banker_f4 == 4) {
+              if (value_player_3 == 0 || value_player_3 == 1 || value_player_3 == 8 || value_player_3 == 9) {
+                value_banker_last = value_banker_f4;
+              } else {
+                var banker_3 = _deck.shift();
+                bankerCards.push(banker_3);
+                var value_banker_3 = getPokerValue(banker_3);
+                value_banker_last = (value_banker_f4 + value_banker_3) % 10;
+              }
+            }
+            if (value_banker_f4 == 3) {
+              if (value_player_3 == 8) {
+                value_banker_last = value_banker_f4;
+              } else {
+                var banker_3 = _deck.shift();
+                bankerCards.push(banker_3);
+                var value_banker_3 = getPokerValue(banker_3);
+                value_banker_last = (value_banker_f4 + value_banker_3) % 10;
+              }
+            }
+            if (value_banker_f4 < 3) {
+              var banker_3 = _deck.shift();
+              bankerCards.push(banker_3);
+              var value_banker_3 = getPokerValue(banker_3);
+              value_banker_last = (value_banker_f4 + value_banker_3) % 10;
+            }
+
+          }
+
+        }
+
+        if (value_banker_last < value_player_last) {
+          winner = "P";
+        }
+        if (value_banker_last > value_player_last) {
+          winner = "B";
+        }
+        if (value_banker_last == value_player_last) {
+          winner = "T";
+        }
+        //console.log(_deck);
+        // console.log(winner);
+        return { leftDeck: _deck, result: winner,playerCards: playerCards,bankerCards:bankerCards};
+      }
+
+      function deckStringToArr(_deckString){
+            if(_deckString.length == 0){
+                return [];
+            }
+            if(_deckString.charAt(0) == ","){
+              _deckString = _deckString.substring(1);
+            }
+            if(_deckString.charAt(_deckString.length - 1) == ","){
+              //console.log("tail");
+              _deckString = _deckString.substring(0,_deckString.length-1);
+            }
+            _deckString = _deckString.replaceAll("'","");
+            _deckString = _deckString.replaceAll('"',"");
+            _deckString = _deckString.replaceAll(" ","");
+            _deckString = _deckString.replaceAll("[","");
+            _deckString = _deckString.replaceAll("]","");
+            var deck = _deckString.split(",");
+            return deck;
+      }
+      function deckArrToString(_deckArr){
+            var deckString = _deckArr.join("','");
+            deckString = "['" + deckString + "']";
+            return deckString;
+      }
+
+      
+      
+    </script>
+  </body>
+</html>
