@@ -247,8 +247,8 @@
           <label class="label">Recycle Mode</label>
           <div class="select is-primary">
             <select id="recyleModeSelect">
-              <option value = "1">B123P123</option>
-              <option value = "2">P321B321</option>
+              <option value = "1">TBp312b123</option>
+              <option value = "2">BTb321p213</option>
             </select>
           </div>
         </div>
@@ -333,7 +333,6 @@
         var dealtSequence = dealtSequenceTextarea.value;
         var cards = deckStringToArr(dealtSequence);
         console.log(cards);
-        updateDealtImage();
       });
       function backspaceTextarea(_element){
         var cards = deckStringToArr(_element.value);
@@ -366,18 +365,46 @@
           var playerCards = _cards.playerCards;
           var bankerCards = _cards.bankerCards;
           var recycleTextarea = $("#recycleTextarea")[0];
-          if(_mode == "1"){ 
-              console.log("bottom to top b 1 2 3 p 1 2 3");
-              newRecycleCards = newRecycleCards.concat(bankerCards);
-              newRecycleCards = newRecycleCards.concat(playerCards);
+          var preRecycleCards = deckStringToArr(recycleTextarea.value);
+          //console.log(preRecycleCards);
+          //console.log(_cards);
+          if(_mode == "1"){
+              //c  top to bot   p 3 1 2 b 1 2 3 
+              console.log("top to bot   p 3 1 2 b 1 2 3 ");
+              if(playerCards[2]){
+                newRecycleCards.push(playerCards[2]);
+              }
+              newRecycleCards.push(playerCards[0]);
+              newRecycleCards.push(playerCards[1]);
+              newRecycleCards.push(bankerCards[0]);
+              newRecycleCards.push(bankerCards[1]);
+              if(bankerCards[2]){
+                newRecycleCards.push(bankerCards[2]);
+              }
+              newRecycleCards = preRecycleCards.concat(newRecycleCards);
           }
           if(_mode == "2"){
-              console.log("bottom to top p 3 2 1 b 3 2 1");
-              newRecycleCards = newRecycleCards.concat(playerCards.reverse());
-              newRecycleCards = newRecycleCards.concat(bankerCards.reverse());
+              //m 
+              console.log("bottom to top b 3 2 1 p 2 1 3");
+              if(bankerCards[2]){
+                newRecycleCards.push(bankerCards[2]);
+              }
+              newRecycleCards.push(bankerCards[1]);
+              newRecycleCards.push(bankerCards[0]);
+              newRecycleCards.push(playerCards[1]);
+              newRecycleCards.push(playerCards[0]);
+              if(playerCards[2]){
+                newRecycleCards.push(playerCards[2]);
+              }
+              newRecycleCards = preRecycleCards.concat(newRecycleCards);
           }
-          var preRecycleCards = deckStringToArr(recycleTextarea.value);
-          var newRecycleCards = preRecycleCards.concat(newRecycleCards);
+          if(_mode == "99"){
+            //burn card mode
+            var burndCards = _cards.burndCards;
+            newRecycleCards = newRecycleCards.concat(burndCards);
+            newRecycleCards = preRecycleCards.concat(newRecycleCards);
+          
+          }
           recycleTextarea.value = newRecycleCards.join(",");
           $("#recycleCardsCounter")[0].innerHTML = newRecycleCards.length;
 
@@ -396,15 +423,32 @@
         var recyleModeSelectE = $("#recyleModeSelect")[0];
         var recycleMode = recyleModeSelectE.value;
         var currentRoundCards = currentRoundInputE.value;
-        var gameRes = playBaccarat(deckStringToArr(currentRoundCards));
-        //console.log(gameRes);
-        if(gameRes.leftDeck.length > 0){
-            alert("round game err");
-            throw "round game err";
+        var currentRoundCardsArr = deckStringToArr(currentRoundCards);
+        var gameRes;
+        var burndCards = [];
+        if(currentRoundCardsArr.length == 1){
+          //burnCardMode
+          var burndCount = getPokerValue(currentRoundCardsArr[0]);
+          recycleMode = "99";
+          burndCards.push(currentRoundCardsArr[0]);
+          for(var i = 0;i < burndCount; i++){
+            burndCards.push("?");
+          }
+          gameRes = {playerCards:[],bankerCards:[],burndCards:burndCards};
+          currentRoundCards = burndCards.join(",");
+        }else{
+          gameRes = playBaccarat(currentRoundCardsArr);
+          //console.log(gameRes);
+          if(gameRes.leftDeck.length > 0){
+              alert("round game err");
+              throw "round game err";
+          }
+          updateGameRes(gameRes.result);
         }
+        console.log(currentRoundCards);
         updateDealtSequence(currentRoundCards);
-        recycleCards(recycleMode,{playerCards:gameRes.playerCards,bankerCards:gameRes.bankerCards});
-        updateGameRes(gameRes.result);
+        recycleCards(recycleMode,{playerCards:gameRes.playerCards,bankerCards:gameRes.bankerCards,burndCards:burndCards});
+        
         currentRoundInputE.value = "";
         
         //console.log(recyleModeSelectE.value);
@@ -422,15 +466,11 @@
           dealtSequenceTextarea.value = newDealtDeckArr.join(",");
       }
 
-      function updateGameResSequence(res){
-
-      }
-
       function getPokerValue(_card){
         //console.log(_card);
         var value = _card.substring(1);
         if(value == "K" || value == "Q" || value == "J" || value == "10" || value == "T"){
-            value = "0";
+            value = "10";
         }
         if(value == "A"){
             value = "1";
